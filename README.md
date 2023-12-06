@@ -2,6 +2,16 @@
 
 This is a side project that follows all the acceleration tricks in [tinyllama](https://github.com/jzhang38/TinyLlama), with the minimal modification to the huggingface transformers code. This means that one can pretrain a tinyllama with [huggingface trainer](https://github.com/huggingface/transformers/blob/main/examples/pytorch/language-modeling/run_clm.py) on RTX3090 / RTX4090 / A6000 / A100 without gradient checkpointing, and the training speed is comparable to the original tinyllama code.
 
+I use the latest codes in [FlashAttention](https://github.com/Dao-AILab/flash-attention/). I'm not sure if the codes will be faster than the original tinyllama code. I also use deepspeed to accelerate the training.
+
+## Benchmark
+
+| Model     | GPU       | Batch Size | GPU Memory | Speed (tokens/s) |
+| --------- | --------- | ---------- | ---------- | ---------------- |
+| tinyllama | 8*RTX3090 | 4          | 16.3G      | 36k              |
+| tinyllama | 4*A6000   | 8          | 30G        | 35k              |
+| tinyllama | 4*A6000   | 12         | 39G        | 40k              |
+
 ## Installation
 
 Change the cuda version if it is not compatible.
@@ -61,7 +71,6 @@ deepspeed --master_port 29500 run_clm.py \
     --load_best_model_at_end True \
     --metric_for_best_model eval_loss \
     --report_to none \
-    --run_name llama-test \
     --output_dir outputs/tiny-llama
 ```
 
