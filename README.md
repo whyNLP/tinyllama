@@ -6,11 +6,11 @@ I use the latest codes in [FlashAttention](https://github.com/Dao-AILab/flash-at
 
 ## Benchmark
 
-| Model     | GPU       | Batch Size | GPU Memory | Speed (tokens/s) |
-| --------- | --------- | ---------- | ---------- | ---------------- |
-| tinyllama | 8*RTX3090 | 4          | 16.3G      | 36k              |
-| tinyllama | 4*A6000   | 8          | 30G        | 35k              |
-| tinyllama | 4*A6000   | 12         | 39G        | 40k              |
+| Model     | GPU       | Batch Size Per GPU | GPU Memory | Speed (tokens/s) |
+| --------- | --------- | ------------------ | ---------- | ---------------- |
+| tinyllama | 8*RTX3090 | 4                  | 16.3G      | 36k              |
+| tinyllama | 4*A6000   | 8                  | 30G        | 35k              |
+| tinyllama | 4*A6000   | 12                 | 39G        | 40k              |
 
 That means you could train a chinchilla-optimal TinyLlama (1.1B param, 22B tokens) in 1 week with 4 A6000 or 8 RTX3090. I don't have access to A100, so I'd appreciate it if someone could test it.
 
