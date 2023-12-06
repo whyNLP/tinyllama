@@ -12,6 +12,8 @@ I use the latest codes in [FlashAttention](https://github.com/Dao-AILab/flash-at
 | tinyllama | 4*A6000   | 8          | 30G        | 35k              |
 | tinyllama | 4*A6000   | 12         | 39G        | 40k              |
 
+That means you could train a chinchilla-optimal TinyLlama (1.1B param, 22B tokens) in 1 week with 4 A6000 or 8 RTX3090. I don't have access to A100, so I'd appreciate it if someone could test it.
+
 ## Installation
 
 Change the cuda version if it is not compatible.
