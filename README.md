@@ -80,6 +80,6 @@ deepspeed --master_port 29500 run_clm.py \
     --output_dir outputs/tiny-llama
 ```
 
-Now the codes should be Blazingly Fast. The acceleration also applies to other llama models. I think it should be possible to pretrain a llama-7b on 8 A6000, but I haven't tested it yet.
+Now the codes should be Blazingly Fast. The acceleration also applies to other llama models.
 
 
