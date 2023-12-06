@@ -1,0 +1,11 @@
+transformers == 4.35.2
+accelerate >= 0.20.1
+datasets
+evaluate
+scikit-learn
+deepspeed
+sentencepiece
+
+packaging
+git+https://github.com/Dao-AILab/flash-attention@v2.3.6#subdirectory=csrc/layer_norm
+flash-attn == 2.3.6
