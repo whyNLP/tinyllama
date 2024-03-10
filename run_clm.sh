@@ -15,8 +15,7 @@ export TINY_FUSED_ROTARY=1
 export TINY_FUSED_SWIGLU=1
 
 
-deepspeed --master_port 29500 run_clm.py \
-    --deepspeed ds_config.json \
+accelerate launch run_clm.py \
     --model_name_or_path TinyLlama/TinyLlama-1.1B-intermediate-step-955k-token-2T \
     --dataset_name wikitext \
     --dataset_config_name wikitext-103-raw-v1 \
@@ -30,6 +29,7 @@ deepspeed --master_port 29500 run_clm.py \
     --learning_rate 9.5e-4 \
     --weight_decay 6.6e-6 \
     --bf16 \
+    --torch_dtype bfloat16 \
     --do_train \
     --do_eval \
     --do_predict \

@@ -2,19 +2,22 @@
 
 This is a side project that follows all the acceleration tricks in [tinyllama](https://github.com/jzhang38/TinyLlama), with the minimal modification to the huggingface transformers code. This means that one can pretrain a tinyllama with [huggingface trainer](https://github.com/huggingface/transformers/blob/main/examples/pytorch/language-modeling/run_clm.py) on RTX3090 / RTX4090 / A6000 / A100 without gradient checkpointing, and the training speed is comparable to the original tinyllama code.
 
-I use the latest codes in [FlashAttention](https://github.com/Dao-AILab/flash-attention/). I'm not sure if the codes will be faster than the original tinyllama code. I also use deepspeed to accelerate the training.
+I use the latest codes in [FlashAttention](https://github.com/Dao-AILab/flash-attention/). I'm not sure if the codes will be faster than the original tinyllama code. I also use [accelerate](https://github.com/huggingface/accelerate)* to accelerate the training.
+
+<sub>* My recent experiments show that deepspeed may slow down training if the cuda memory is sufficient.</sub>
 
 ## Benchmark
 
 | Model     | GPU        | Batch Size Per GPU | GPU Memory | Speed (tokens/s) |
 | --------- | ---------- | ------------------ | ---------- | ---------------- |
-| tinyllama | 8*RTX3090  | 4                  | 16.3G      | 36k              |
-| tinyllama | 4*A6000    | 8                  | 30G        | 35k              |
-| tinyllama | 4*A6000    | 12                 | 39G        | 40k              |
-| tinyllama | 8*A40      | 8                  | 30G        | 86k              |
-| tinyllama | 8*A40      | 12                 | 39G        | 92k              |
-| llama-7b  | 8*A40      | 1                  | 39.5G      | 4.7k             |
-| llama-7b  | 8*A100-80G | 4                  | 60G        | 18k              |
+| tinyllama | 1*RTX3090  | 4                  | 22.3G      | 8.2k             |
+| tinyllama | 8*RTX3090  | 4                  | 16.3G      | 36k  ?           |
+| tinyllama | 4*A6000    | 8                  | 30G        | 35k  ?           |
+| tinyllama | 4*A6000    | 12                 | 39G        | 40k  ?           |
+| tinyllama | 8*A40      | 8                  | 30G        | 86k  ?           |
+| tinyllama | 8*A40      | 12                 | 39G        | 92k  ?           |
+| llama-7b  | 8*A40      | 1                  | 39.5G      | 4.7k ?           |
+| llama-7b  | 8*A100-80G | 4                  | 60G        | 18k  ?           |
 
 That means you could train a chinchilla-optimal TinyLlama (1.1B param, 22B tokens) in 1 week with 4 A6000 or 8 RTX3090. I don't have access to A100, so I'd appreciate it if someone could test it.
 
@@ -53,8 +56,7 @@ That's not over! You need to switch on the optimizing strategies by the environm
 + export TINY_FUSED_ROTARY=1
 + export TINY_FUSED_SWIGLU=1
 
-deepspeed --master_port 29500 run_clm.py \
-    --deepspeed ds_config.json \
+accelerate launch run_clm.py \
     --model_name_or_path TinyLlama/TinyLlama-1.1B-intermediate-step-955k-token-2T \
     --dataset_name wikitext \
     --dataset_config_name wikitext-103-raw-v1 \
@@ -67,6 +69,7 @@ deepspeed --master_port 29500 run_clm.py \
     --learning_rate 5e-4 \
     --weight_decay 6.6e-6 \
     --bf16 \
+    --torch_dtype bfloat16 \
     --do_train \
     --do_eval \
     --do_predict \
