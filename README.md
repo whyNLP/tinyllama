@@ -1,24 +1,38 @@
 # Tiny Llama
 
-This is a side project that follows all the acceleration tricks in [tinyllama](https://github.com/jzhang38/TinyLlama), with the minimal modification to the huggingface transformers code. This means that one can pretrain a tinyllama with [huggingface trainer](https://github.com/huggingface/transformers/blob/main/examples/pytorch/language-modeling/run_clm.py) on RTX3090 / RTX4090 / A6000 / A100 without gradient checkpointing, and the training speed is comparable to the original tinyllama code.
+This is a side project that follows all the acceleration tricks in [tinyllama](https://github.com/jzhang38/TinyLlama), with the minimal modification to the huggingface transformers code. This means that one can pretrain a tinyllama with [huggingface trainer](https://github.com/huggingface/transformers/blob/main/examples/pytorch/language-modeling/run_clm.py) on RTX3090 / RTX4090 / A6000 / A100 without gradient checkpointing, and the training speed is comparable to (or even higher than) the original tinyllama code.
 
-I use the latest codes in [FlashAttention](https://github.com/Dao-AILab/flash-attention/). I'm not sure if the codes will be faster than the original tinyllama code. I also use [accelerate](https://github.com/huggingface/accelerate)* to accelerate the training.
+I use the latest codes in [FlashAttention](https://github.com/Dao-AILab/flash-attention/). I also use [accelerate](https://github.com/huggingface/accelerate)* to accelerate the training.
 
-<sub>* My recent experiments show that deepspeed may slow down training if the cuda memory is sufficient.</sub>
+<sub>* I previously use deepspeed, but my recent experiments show that deepspeed may slow down training if the cuda memory is sufficient.</sub>
 
 ## Benchmark
 
 | Model     | GPU        | Batch Size Per GPU | GPU Memory | Speed (tokens/s) |
 | --------- | ---------- | ------------------ | ---------- | ---------------- |
 | tinyllama | 1*RTX3090  | 4                  | 22.3G      | 8.2k             |
-| tinyllama | 8*RTX3090  | 4                  | 16.3G      | 36k  ?           |
 | tinyllama | 4*A6000    | 8                  | 44G        | 40.4k            |
-| tinyllama | 8*A40      | 8                  | 30G        | 86k  ?           |
-| tinyllama | 8*A40      | 12                 | 39G        | 92k  ?           |
-| llama-7b  | 8*A40      | 1                  | 39.5G      | 4.7k ?           |
-| llama-7b  | 8*A100-80G | 4                  | 60G        | 18k  ?           |
+| tinyllama | 8*A100-80G | 16                 | 76.9G      | 204.5k           |
+| tinyllama | 8*A100-80G | 16*8               | 77.0G      | 212.9k           |
+| llama-7b  | 8*A100-80G | 1                  | 78.8G      | 22.4k            |
 
-That means you could train a chinchilla-optimal TinyLlama (1.1B param, 22B tokens) in 1 week with 4 A6000 or 8 RTX3090. I don't have access to A100, so I'd appreciate it if someone could test it.
+<details>
+<summary>Deepspeed Results</summary>
+
+| Model     | GPU        | Batch Size Per GPU | GPU Memory | Speed (tokens/s) |
+| --------- | ---------- | ------------------ | ---------- | ---------------- |
+| tinyllama | 8*RTX3090  | 4                  | 16.3G      | 36k              |
+| tinyllama | 4*A6000    | 8                  | 30G        | 35k              |
+| tinyllama | 4*A6000    | 12                 | 39G        | 40k              |
+| tinyllama | 8*A40      | 8                  | 30G        | 86k              |
+| tinyllama | 8*A40      | 12                 | 39G        | 92k              |
+| llama-7b  | 8*A40      | 1                  | 39.5G      | 4.7k             |
+| llama-7b  | 8*A100-80G | 4                  | 60G        | 18k              |
+</details>
+
+where 16*8 means a batch size of 16 per GPU and gradient accumulation steps of 8. It achieves a throughput of 26.6k tokens per second per A100-80G GPU.
+
+That means you could train a chinchilla-optimal TinyLlama (1.1B param, 22B tokens) in 1 week with 4 A6000 or 8 RTX3090, or 28.7 hours with 8 A100-80G.
 
 ## Installation
 
@@ -29,6 +43,9 @@ conda install pytorch==2.1.0 pytorch-cuda=12.1 -c pytorch -c nvidia
 pip install xformers --index-url https://download.pytorch.org/whl/cu121
 pip install -r requirements.txt
 ```
+
+> [!NOTE]
+> [Flash Attention](https://github.com/Dao-AILab/flash-attention) has been updated since the start of this project. Feel free to install the latest version of Flash Attention by modifying the `requirements.txt` file. It has not been tested though.
 
 ## Usage
 
