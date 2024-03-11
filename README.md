@@ -40,12 +40,12 @@ Change the cuda version if it is not compatible.
 
 ```sh
 conda install pytorch==2.1.0 pytorch-cuda=12.1 -c pytorch -c nvidia
-pip install xformers --index-url https://download.pytorch.org/whl/cu121
+pip install xformers==0.0.22.post7 --index-url https://download.pytorch.org/whl/cu121
 pip install -r requirements.txt
 ```
 
 > [!NOTE]
-> [Flash Attention](https://github.com/Dao-AILab/flash-attention) has been updated since the start of this project. Feel free to install the latest version of Flash Attention by modifying the `requirements.txt` file. It has not been tested though.
+> [Flash Attention](https://github.com/Dao-AILab/flash-attention) has been updated since the start of this project. Feel free to install the latest version of Flash Attention by modifying the `requirements.txt` file. It has not been tested though. For [PyTorch](https://pytorch.org/get-started/locally/) and [xFormers](https://github.com/facebookresearch/xformers), please refer to their installation instructions for the latest version.
 
 ## Usage
 
@@ -102,3 +102,6 @@ accelerate launch run_clm.py \
 Now the codes should be Blazingly Fast. The acceleration also applies to other llama models.
 
 
+## Related Projects
+- [tinyllama-zh](https://github.com/whyNLP/tinyllama-zh): My demo project that uses this repo to pretrain a Chinese TinyLlama.
+<!-- - [LCKV](https://github.com/whyNLP/LCKV): My project that uses this repo to do pretraining on a variant of Llama model. -->
