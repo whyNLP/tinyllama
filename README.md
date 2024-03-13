@@ -12,6 +12,7 @@ I use the latest codes in [FlashAttention](https://github.com/Dao-AILab/flash-at
 | --------- | ---------- | ------------------ | ---------- | ---------------- |
 | tinyllama | 1*RTX3090  | 4                  | 22.3G      | 8.2k             |
 | tinyllama | 4*A6000    | 8                  | 44G        | 40.4k            |
+| tinyllama | 8*A6000    | 8                  | 44.1G      | 73.3k            |
 | tinyllama | 8*A100-80G | 16                 | 76.9G      | 204.5k           |
 | tinyllama | 8*A100-80G | 16*8               | 77.0G      | 212.9k           |
 | llama-7b  | 8*A100-80G | 1                  | 78.8G      | 22.4k            |
