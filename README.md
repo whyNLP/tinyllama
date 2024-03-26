@@ -11,6 +11,7 @@ I use the latest codes in [FlashAttention](https://github.com/Dao-AILab/flash-at
 | Model     | GPU        | Batch Size Per GPU | GPU Memory | Speed (tokens/s) |
 | --------- | ---------- | ------------------ | ---------- | ---------------- |
 | tinyllama | 1*RTX3090  | 4                  | 22.3GiB    | 8.2k             |
+| tinyllama | 8*RTX3090  | 3                  | 20.8GiB    | 32.7k            |
 | tinyllama | 1*RTX4090  | 4                  | 23.1GiB    | 17k              |
 | tinyllama | 1*A6000    | 8                  | 43.8GiB    | 12.2k            |
 | tinyllama | 4*A6000    | 8                  | 44GiB      | 40.4k            |
