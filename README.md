@@ -16,6 +16,7 @@ I use the latest codes in [FlashAttention](https://github.com/Dao-AILab/flash-at
 | tinyllama | 1*A6000    | 8                  | 43.8GiB    | 12.2k            |
 | tinyllama | 4*A6000    | 8                  | 44GiB      | 40.4k            |
 | tinyllama | 8*A6000    | 8                  | 44.1GiB    | 73.3k            |
+| tinyllama | 1*A100-80G | 16                 | 76.2GiB    | 26.6k            |
 | tinyllama | 8*A100-80G | 16                 | 76.9GiB    | 204.5k           |
 | tinyllama | 8*A100-80G | 16*8               | 77.0GiB    | 212.9k           |
 | llama-7b  | 8*A100-80G | 1                  | 78.8GiB    | 22.4k            |
