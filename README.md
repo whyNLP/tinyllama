@@ -109,4 +109,4 @@ Now the codes should be Blazingly Fast. The acceleration also applies to other l
 
 ## Related Projects
 - [tinyllama-zh](https://github.com/whyNLP/tinyllama-zh): My demo project that uses this repo to pretrain a Chinese TinyLlama.
-<!-- - [LCKV](https://github.com/whyNLP/LCKV): My project that uses this repo to do pretraining on a variant of Llama model. -->
+- [LCKV](https://github.com/whyNLP/LCKV): My project that uses this repo to do pretraining on a variant of Llama model.
