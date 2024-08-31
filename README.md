@@ -6,7 +6,7 @@ I use the latest codes in [FlashAttention](https://github.com/Dao-AILab/flash-at
 
 ## News
 - [24/08/31] Update to support the latest  `transformers` library. Fix some minor issues in fused swiglu implementation.
-- [24/03/10] Change backend to `accelerate`. The `deepspeed` backend version is still available at commit 1694ad94c51a6bf18fc159332944dcee03610798.
+- [24/03/10] Change backend to `accelerate`. The `deepspeed` backend version is still available [here](https://github.com/whyNLP/tinyllama/tree/1694ad94c51a6bf18fc159332944dcee03610798).
 - [23/12/06] Initial release.
 
 ## Benchmark
