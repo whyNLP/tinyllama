@@ -3,20 +3,20 @@
 
 echo "Start running..."
 
-# improvement: ***** huge
+# improvement: ***   good        (speed 0.0%, memory 7.0%)
 export TINY_FLASH_ATTN=1
-# improvement: ****  significant
+# improvement: ***** huge        (speed 8.7%, memory 16.2%)
 export TINY_FUSED_RMSNORM=1
-# improvement: *     minor
+# improvement: **    normal      (speed 0.0%, memory 4.6%)
 export TINY_FUSED_CROSSENTROPY=1
-# improvement: *     minor
+# improvement: *     minor       (speed 1.9%, memory 0.5%)
 export TINY_FUSED_ROTARY=1
-# improvement: **    a little bit
+# improvement: ****  significant (speed 1.6%, memory 16.2%)
 export TINY_FUSED_SWIGLU=1
 
 
 accelerate launch run_clm.py \
-    --model_name_or_path TinyLlama/TinyLlama-1.1B-intermediate-step-955k-token-2T \
+    --model_name_or_path TinyLlama/TinyLlama-1.1B-intermediate-step-1195k-token-2.5T \
     --dataset_name wikitext \
     --dataset_config_name wikitext-103-raw-v1 \
     --per_device_train_batch_size 4 \
