@@ -2,7 +2,7 @@
 
 This is a side project that follows all the acceleration tricks in [tinyllama](https://github.com/jzhang38/TinyLlama), with the minimal modification to the huggingface transformers code. This means that one can pretrain a tinyllama with [huggingface trainer](https://github.com/huggingface/transformers/blob/main/examples/pytorch/language-modeling/run_clm.py) on RTX3090 / RTX4090 / A6000 / A100 without gradient checkpointing, and the training speed is comparable to (or even higher than) the original tinyllama code.
 
-I use the latest codes in [FlashAttention](https://github.com/Dao-AILab/flash-attention/). I also use [accelerate](https://github.com/huggingface/accelerate)* to accelerate the training.
+I use the latest codes in [FlashAttention](https://github.com/Dao-AILab/flash-attention/). I also use [accelerate](https://github.com/huggingface/accelerate) to accelerate the training.
 
 ## News
 - [24/08/31] Update to support the latest  `transformers` library. Fix some minor issues in fused swiglu implementation.
