@@ -452,7 +452,7 @@ def main():
             trust_remote_code=model_args.trust_remote_code,
             torch_dtype=torch_dtype,
             low_cpu_mem_usage=model_args.low_cpu_mem_usage,
-            use_flash_attention_2=use_flash_attention_2,
+            attn_implementation="flash_attention_2" if use_flash_attention_2 else None,
         )
     else:
         torch_dtype = (
@@ -461,7 +461,7 @@ def main():
             else getattr(torch, model_args.torch_dtype)
         )
         if use_flash_attention_2:
-            config._flash_attn_2_enabled = True
+            config._attn_implementation = "flash_attention_2"
         model = AutoModelForCausalLM.from_config(config, trust_remote_code=model_args.trust_remote_code, torch_dtype=torch_dtype)
         n_params = sum({p.data_ptr(): p.numel() for p in model.parameters()}.values())
         logger.info(f"Training new model from scratch - Total size={n_params/2**20:.2f}M params")
