@@ -50,7 +50,7 @@ That means you could train a chinchilla-optimal TinyLlama (1.1B param, 22B token
 Use a proper python version, install pytorch, xformers, and other dependencies.
 
 ```sh
-# for example, use python 3.11
+# for example, use python 3.10
 conda install pytorch pytorch-cuda=12.1 -c pytorch -c nvidia
 conda install xformers -c xformers
 pip install -r requirements.txt
