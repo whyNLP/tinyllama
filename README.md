@@ -64,8 +64,8 @@ Change the cuda version if it is not compatible.
 The current implementation is developed using python 3.12.4.
 
 ```sh
-# install pytorch
-conda install pytorch==2.5.0 pytorch-cuda=12.1 -c pytorch-nightly -c nvidia
+# install pytorch (2.5.0 nightly)
+conda install pytorch pytorch-cuda=12.1 -c pytorch-nightly -c nvidia
 
 # install xFormers
 # (Optional) Makes the build much faster
